@@ -1,0 +1,27 @@
+{% extends 'customers/base.html' %}
+
+{% block content %}
+  <div class="container mt-5" style="max-width:500px;">
+    <h2>Delivery Partner Registration</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <input type="text" name="username" class="form-control mb-3" placeholder="Username" required />
+
+      <input type="email" name="email" class="form-control mb-3" placeholder="Email" required />
+
+      <input type="password" name="password" class="form-control mb-3" placeholder="Password" required />
+
+      <input type="text" name="hub_name" class="form-control mb-3" placeholder="Hub Name" required />
+
+      <input type="number" name="hub_area" class="form-control mb-3" placeholder="Hub Area (sqft)" required />
+
+      <input type="number" name="employees" class="form-control mb-3" placeholder="Number of Employees" required />
+
+      <button type="submit">Register Delivery Partner</button>
+    </form>
+
+    <p>Admin will review and approve your account.</p>
+  </div>
+{% endblock %}
