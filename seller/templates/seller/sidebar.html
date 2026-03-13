@@ -1,0 +1,23 @@
+<div class="sidebar">
+    <h2>Seller Panel</h2>
+
+    <a href="{% url 'seller:dashboard' %}"
+       class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+       Dashboard
+    </a>
+
+    <a href="{% url 'seller:products' %}"
+       class="{% if request.resolver_match.url_name == 'products' %}active{% endif %}">
+       My Products
+    </a>
+
+    <a href="{% url 'seller:orders' %}"
+       class="{% if request.resolver_match.url_name == 'orders' %}active{% endif %}">
+       Orders
+    </a>
+
+    <a href="{% url 'seller:earnings' %}"
+       class="{% if request.resolver_match.url_name == 'earnings' %}active{% endif %}">
+       Earnings
+    </a>
+</div>

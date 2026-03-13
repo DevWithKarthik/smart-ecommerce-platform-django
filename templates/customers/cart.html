@@ -1,0 +1,101 @@
+{% extends 'customers/base.html' %}\{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="container ccart mt-5">
+    <h2>Your Cart</h2>
+
+    {% if cart_items %}
+      <div class="desktop-cart">
+        <table class="table mt-4">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for variant_id, item in cart_items %}
+              <tr>
+                <td>
+                  <img src="{{ item.image }}" width="60" />
+                  {{ item.product_name }}
+
+                  <br />
+                  <small>
+                    {% for attr in item.attributes %}
+                      {{ attr }}<br />
+                    {% endfor %}
+                  </small>
+                </td>
+
+                <td>₹{{ item.price }}</td>
+                <td>
+                  <div class="d-flex align-items-center gap-2">
+                    <a href="{% url 'cart:decrease_quantity' variant_id %}" class="btn btn-outline-secondary btn-sm">−</a>
+
+                    <span>{{ item.quantity }}</span>
+
+                    <a href="{% url 'cart:increase_quantity' variant_id %}" class="btn btn-outline-secondary btn-sm">+</a>
+                  </div>
+                </td>
+                <td>₹{{ item.total_price }}</td>
+
+                <td>
+                  <a href="{% url 'cart:remove_from_cart' variant_id %}" class="btn btn-danger btn-sm">Remove</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mobile-cart">
+        {% for variant_id, item in cart_items %}
+          <div class="mobile-cart-card">
+            <div class="mobile-cart-top">
+              <img src="{{ item.image }}" alt="" width="80" />
+              <div>
+                <h6>{{ item.product_name }}</h6>
+
+                {% for attr in item.attributes %}
+                  <small>{{ attr }}</small><br />
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="mobile-cart-details">
+              <p>
+                <strong>Price:</strong> ₹{{ item.price }}
+              </p>
+
+              <div class="qty-mobile">
+                <a href="{% url 'cart:decrease_quantity' variant_id %}" class="qty-btn">−</a>
+                <span>{{ item.quantity }}</span>
+                <a href="{% url 'cart:increase_quantity' variant_id %}" class="qty-btn">+</a>
+              </div>
+
+              <p>
+                <strong>Total:</strong> ₹{{ item.total_price }}
+              </p>
+            </div>
+
+            <a href="{% url 'cart:remove_from_cart' variant_id %}" class="remove-mobile">Remove</a>
+          </div>
+        {% endfor %}
+      </div>
+
+      <h4 class="text-end">Grand Total: ₹{{ total }}</h4>
+
+      <a href="{% url 'orders:checkout' %}" class="btn btn-success">Proceed to Checkout</a>
+    {% else %}
+      <p>Your cart is empty.</p>
+    {% endif %}
+  </div>
+{% endblock %}

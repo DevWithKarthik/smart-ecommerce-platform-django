@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-black">
+  <div class="container">
+    <!-- LOGO -->
+    <a class="navbar-brand fw-bold" href="{% url 'home' %}">KARBEX</a>
+
+    <!-- MOBILE TOGGLE -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"><span class="navbar-toggler-icon"></span></button>
+
+    <div class="collapse navbar-collapse" id="menu">
+      <!-- LEFT MENU -->
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'prodcuts:product_list' %}">Shop</a>
+        </li>
+      </ul>
+
+      <!-- RIGHT ICONS -->
+      <ul class="navbar-nav nav-icons align-items-center">
+        <li class="nav-item">
+          <i class="bi bi-search nav-icon"></i>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="{% url 'cart:cart_detail' %}">
+            <i class="bi bi-cart nav-icon"></i>
+
+            {% if cart_count %}
+              <span class="cart-badge">{{ cart_count }}</span>
+            {% endif %}
+          </a>
+        </li>
+
+        <!-- USER DROPDOWN -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-person nav-icon"></i>
+
+            {% if request.user.is_authenticated %}
+              <span class="username">Hi {{ request.user.first_name|default:request.user.username }}</span>
+            {% endif %}
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end">
+            {% if request.user.is_authenticated %}
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+              </li>
+            {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:login' %}">Customer Login</a>
+              </li>
+
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:seller_login' %}">Seller Login</a>
+              </li>
+
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:delivery_login' %}">Delivery Login</a>
+              </li>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

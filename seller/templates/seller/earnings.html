@@ -1,0 +1,34 @@
+{% extends "customers/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'seller/seller.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+
+    {% include "seller/sidebar.html" %}
+
+    <div class="main">
+        <div class="topbar">
+            <h1>Earnings Overview</h1>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <span>This Month</span>
+                <h2>₹{{ monthly_earnings }}</h2>
+            </div>
+
+            <div class="card">
+                <span>Total Earnings</span>
+                <h2>₹{{ total_earnings }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
