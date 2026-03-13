@@ -1,0 +1,135 @@
+{% extends "customers/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container-fluid px-4 px-md-5">
+
+        <div class="row hero-top align-items-center text-center text-md-start">
+            <div class="col-12">
+                <h1>Best Tech Products 2026</h1>
+                <p>Discover the future of smart Gadgets and Accessories.</p>
+                <a href="{% url 'prodcuts:product_list' %}" class="btn btn-primary btn-lg mt-2">Shop Now</a>
+            </div>
+        </div>
+
+        <div class="row hero-bottom mt-4">
+            <div class="col-12">
+                <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+
+                        <div class="carousel-item active">
+                            <img src="{% static 'images/samsung_banner.png' %}" class="d-block w-100 hero-banner">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="{% static 'images/oneplus_banner.jpg' %}" class="d-block w-100 hero-banner">
+                        </div>
+
+                        <div class="carousel-item">
+                            <img src="{% static 'images/shop2.jpg' %}" class="d-block w-100 hero-banner">
+                        </div>
+
+                    </div>
+
+                    <button class="carousel-control-prev" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+
+                    <button class="carousel-control-next" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CATEGORIES -->
+<section class="categories">
+    <div class="container">
+        <h2 class="text-center mb-5 shop">Shop by Category</h2>
+
+        <div class="category-row">
+
+            <div class="category-col">
+                <a href="{% url 'prodcuts:product_list' %}">
+                <div class="category-box">
+                    <img src="{% static 'images/heading_headphone.webp' %}">
+                    <p>Headphones</p>
+                </div></a>
+            </div>
+
+            <div class="category-col">
+                <a href="{% url 'prodcuts:product_list' %}">
+                <div class="category-box">
+                    <img src="{% static 'images/heading_smartwatch.png' %}">
+                    <p>Smart Watches</p>
+                </div></a>
+            </div>
+
+            <div class="category-col">
+                <a href="{% url 'prodcuts:product_list' %}">
+                <div class="category-box">
+                    <img src="{% static 'images/heading_laptop.png' %}">
+                    <p>Laptops</p>
+                </div></a>
+            </div>
+
+            <div class="category-col">
+                <a href="{% url 'prodcuts:product_list' %}">
+                <div class="category-box" href>
+                    <img src="{% static 'images/heading_phone.png' %}">
+                    <p>Mobiles</p>
+                </div></a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- PRODUCTS -->
+<section class="products">
+    <div class="container">
+        <h2 class="text-center mb-5">Trending Products</h2>
+
+        <div class="row pro-row" style="gap: 20px;" max-width="300px">
+            <div class="col-md-3">
+                <a href="{% url 'prodcuts:product_list' %}">
+                <div class="product-card">
+                    <img src="{% static 'images/heading_headphone.webp' %}">
+                    <h6>Wireless Headphone</h6>
+                    <p>₹4,999</p>
+                    <button class="btn btn-dark w-100">Add to Cart</button>
+                </div></a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="{% url 'prodcuts:product_list' %}">
+                <div class="product-card">
+                    <img src="{% static 'images/heading_smartwatch.png' %}">
+                    <h6>Smart Watch Pro</h6>
+                    <p>₹6,999</p>
+                    <button class="btn btn-dark w-100">Add to Cart</button>
+                </div></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- PROMO -->
+<section class="promo">
+    <div class="container text-center">
+        <h2>Upgrade Your Tech Today</h2>
+        <p>Flat 30% Off on Premium Gadgets</p>
+        <a href="{% url 'prodcuts:product_list' %}" class="btn btn-light btn-lg">Shop Deals</a>
+    </div>
+</section>
+
+{% endblock %}

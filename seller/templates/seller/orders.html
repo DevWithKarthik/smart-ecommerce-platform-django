@@ -1,0 +1,50 @@
+{% extends "customers/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'seller/seller.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+
+    {% include "seller/sidebar.html" %}
+
+    <div class="main">
+        <div class="topbar">
+            <h1>Orders</h1>
+        </div>
+
+        <div class="table-box">
+            <table>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Product</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                </tr>
+
+                {% for item in order_items %}
+                <tr>
+                    <td>#{{ item.order.id }}</td>
+                    <td>{{ item.variant.product.name }}</td>
+                    <td>{{ item.order.user.username }}</td>
+                    <td>
+                        <span class="status pending">
+                            {{ item.order.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No orders yet.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
