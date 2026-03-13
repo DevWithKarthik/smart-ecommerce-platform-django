@@ -1,0 +1,70 @@
+{% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/product_detail.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="product-container">
+    <!-- LEFT SIDE IMAGE -->
+    <div class="product-left">
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+    </div>
+
+    <!-- RIGHT SIDE DETAILS -->
+    <div class="product-right">
+      <h1 class="product-title">{{ product.name }}</h1>
+
+      <p class="product-price">₹{{ product.base_price }}</p>
+
+      <p class="product-description">{{ product.description }}</p>
+
+      <!-- ========================= -->
+      <!-- DYNAMIC ATTRIBUTES -->
+      <!-- ========================= -->
+
+      {% for attr_name, values in attributes.items %}
+        <div class="attribute-group">
+          <p class="attribute-title">{{ attr_name }}</p>
+
+          <div class="attribute-options">
+            {% for value in values %}
+              <button type="button" class="attribute-btn" data-attribute="{{ attr_name }}" data-value="{{ value.id }}">{{ value.value }}</button>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+
+      <!-- Quantity -->
+      <div class="qty-section">
+        <p><strong>Available Stock: {{ total_stock }}</strong></p>
+      </div>
+
+      <!-- Add to Cart (temporary button only) -->
+      <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
+        {% csrf_token %}
+
+        {% for attr_name, values in attributes.items %}
+          <div class="mb-3">
+            <label><strong>{{ attr_name }}</strong></label>
+            <select name="attribute_{{ attr_name }}" class="form-select" required>
+              <option value="">Select {{ attr_name }}</option>
+              {% for value in values %}
+                <option value="{{ value.id }}">{{ value.value }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+
+        <div class="mb-3">
+          <label>Quantity</label>
+          <input type="number" name="quantity" value="1" min="1" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-dark w-100">Add To Cart</button>
+      </form>
+      
+    </div>
+  </div>
+{% endblock %}

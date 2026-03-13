@@ -1,0 +1,44 @@
+{% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'seller/seller.css' %}"/>
+{% endblock %}
+
+
+{% block content %}
+  <div class="wrapper">
+    <div class="sidebar mt-5">
+      <h2>Seller Panel</h2>
+      <a class="active" href="{% url 'seller:dashboard' %}">Dashboard</a>
+      <a href="{% url 'seller:products' %}">My Products</a>
+      <a href="{% url 'seller:orders' %}">Orders</a>
+      <a href="{% url 'seller:earnings' %}">Earnings</a>
+    </div>
+
+    <div class="main">
+      <div class="topbar">
+        <h1>Welcome, {{ request.user.username }}</h1>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <span>Total Products</span>
+          <h2>{{ total_products }}</h2>
+        </div>
+        <div class="card">
+          <span>Total Orders</span>
+          <h2>{{ total_orders }}</h2>
+        </div>
+        <div class="card">
+          <span>Pending Orders</span>
+          <h2>{{ pending_orders }}</h2>
+        </div>
+        <div class="card">
+          <span>Total Revenue</span>
+          <h2>₹{{ total_revenue }}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

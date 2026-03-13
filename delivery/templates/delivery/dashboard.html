@@ -1,0 +1,50 @@
+{% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'delivery/dashboard.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="header">
+    <h1>Today’s <span>Deliveries</span></h1>
+    <div>Agent: {{ request.user.username }}</div>
+  </div>
+
+  <div class="board">
+    {% for order in orders %}
+      <div class="task">
+        <h3>Order #{{ order.id }}</h3>
+
+        <p>Customer: {{ order.full_name }}</p>
+
+        <p>Location: {{ order.city }}</p>
+
+        <span class="status
+          {% if order.status == 'PENDING' %}pickup
+          {% elif order.status == 'OUT_FOR_DELIVERY' %}transit
+          {% elif order.status == 'DELIVERED' %}done
+          {% endif %}
+          ">
+          {{ order.get_status_display }}
+        </span>
+
+        <div class="amount">₹{{ order.total_amount }}</div>
+
+        <div class="actions">
+          {% if order.status == 'PENDING' or order.status == 'SHIPPED' %}
+            <a href="{% url 'delivery:mark_picked' order.id %}"><button class="pick">Mark Picked</button></a>
+          {% endif %}
+
+          {% if order.status == 'OUT_FOR_DELIVERY' %}
+            <a href="{% url 'delivery:mark_delivered' order.id %}"><button class="deliver">Delivered</button></a>
+          {% endif %}
+
+        </div>
+
+      </div>
+    {% empty %}
+      <h3>No delivery tasks assigned</h3>
+    {% endfor %}
+  </div>
+{% endblock %}
