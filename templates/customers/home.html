@@ -1,135 +1,604 @@
-{% extends "customers/base.html" %}
+{% extends 'customers/base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <!-- Fonts are loaded once, globally, via the @import at the top of style.css -->
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
 {% block content %}
+  <div class="sc-page">
+    <!--  ============================================================
+       HERO
+       ============================================================  -->
+    <section class="sc-hero">
+      <span class="sc-hero-shape a"></span>
+      <span class="sc-hero-shape b"></span>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="container-fluid px-4 px-md-5">
+      <div class="container-xxl">
+        <div class="row align-items-center">
+          <div class="col-lg-6 sc-hero-copy sc-reveal">
+            <span class="sc-eyebrow"><i class="bi bi-lightning-charge-fill"></i> Smarter shopping, 2026</span>
+            <h1 class="sc-hero-title mt-3">Everything You Need, Delivered Smarter.</h1>
+            <p class="lead">Handpicked electronics, fashion, and everyday essentials — with genuine warranty and delivery you can actually track.</p>
 
-        <div class="row hero-top align-items-center text-center text-md-start">
-            <div class="col-12">
-                <h1>Best Tech Products 2026</h1>
-                <p>Discover the future of smart Gadgets and Accessories.</p>
-                <a href="{% url 'prodcuts:product_list' %}" class="btn btn-primary btn-lg mt-2">Shop Now</a>
+            <div class="sc-hero-cta">
+              <a href="{% url 'prodcuts:product_list' %}" class="sc-btn sc-btn-primary" data-ripple>Shop Now</a>
+              <a href="#categories" class="sc-btn sc-btn-outline" data-ripple>Browse Categories</a>
             </div>
+
+            <div class="sc-hero-trust">
+              <div>
+                <strong>120K+</strong><span>Happy customers</span>
+              </div>
+              <div>
+                <strong>4.8/5</strong><span>Average rating</span>
+              </div>
+              <div>
+                <strong>2-Day</strong><span>Fast delivery</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 sc-hero-visual sc-reveal">
+            <div class="sc-hero-stage">
+              <img src="{% static 'images/heading_headphone.webp' %}" alt="Featured product" />
+            </div>
+
+            <div class="sc-float-card discount">
+              <span class="icon"><i class="bi bi-tag-fill"></i></span>
+              <div>
+                <strong>Up to 50% OFF</strong><span>On select gadgets</span>
+              </div>
+            </div>
+
+            <div class="sc-float-card trust">
+              <span class="icon"><i class="bi bi-shield-check"></i></span>
+              <div>
+                <strong>Verified Sellers</strong><span>100% genuine products</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--  ============================================================
+       CATEGORIES
+       ============================================================  -->
+    <section class="sc-section" id="categories">
+      <div class="container-xxl">
+        <div class="sc-section-head text-center sc-reveal">
+          <span class="sc-eyebrow">Browse</span>
+          <h2 class="sc-section-title mt-3">Shop by Category</h2>
+          <p>Six categories, thousands of products, one trusted store.</p>
         </div>
 
-        <div class="row hero-bottom mt-4">
-            <div class="col-12">
-                <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
-                    <div class="carousel-inner">
+        <div class="row g-3 g-md-4">
+          <div class="col-6 col-md-4 col-lg-2 sc-reveal">
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-cat-card">
+              <div class="sc-cat-icon">
+                <i class="bi bi-cpu"></i>
+              </div>
+              <h3>Electronics</h3>
+              <span class="count">340+ items</span>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 sc-reveal">
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-cat-card">
+              <div class="sc-cat-icon">
+                <i class="bi bi-phone"></i>
+              </div>
+              <h3>Mobiles</h3>
+              <span class="count">186+ items</span>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 sc-reveal">
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-cat-card">
+              <div class="sc-cat-icon">
+                <i class="bi bi-bag-heart"></i>
+              </div>
+              <h3>Fashion</h3>
+              <span class="count">512+ items</span>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 sc-reveal">
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-cat-card">
+              <div class="sc-cat-icon">
+                <i class="bi bi-smartwatch"></i>
+              </div>
+              <h3>Watches</h3>
+              <span class="count">128+ items</span>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 sc-reveal">
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-cat-card">
+              <div class="sc-cat-icon">
+                <i class="bi bi-laptop"></i>
+              </div>
+              <h3>Laptops</h3>
+              <span class="count">94+ items</span>
+            </a>
+          </div>
+          <div class="col-6 col-md-4 col-lg-2 sc-reveal">
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-cat-card">
+              <div class="sc-cat-icon">
+                <i class="bi bi-house-gear"></i>
+              </div>
+              <h3>Home Appliances</h3>
+              <span class="count">76+ items</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-                        <div class="carousel-item active">
-                            <img src="{% static 'images/samsung_banner.png' %}" class="d-block w-100 hero-banner">
-                        </div>
+    <!--  ============================================================
+       FEATURED PRODUCTS
+       (sample data below — swap for your real product queryset,
+        e.g. {% for product in featured_products %} ... {% endfor %})
+       ============================================================  -->
+    <section class="sc-section sc-section-alt">
+      <div class="container-xxl">
+        <div class="sc-section-head text-center sc-reveal">
+          <span class="sc-eyebrow">Handpicked</span>
+          <h2 class="sc-section-title mt-3">Featured Products</h2>
+          <p>Top-rated gadgets our customers keep coming back for.</p>
+        </div>
 
-                        <div class="carousel-item">
-                            <img src="{% static 'images/oneplus_banner.jpg' %}" class="d-block w-100 hero-banner">
-                        </div>
-
-                        <div class="carousel-item">
-                            <img src="{% static 'images/shop2.jpg' %}" class="d-block w-100 hero-banner">
-                        </div>
-
-                    </div>
-
-                    <button class="carousel-control-prev" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
-
-                    <button class="carousel-control-next" data-bs-target="#heroCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
-
+        <div class="row g-4">
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-product-card">
+              <div class="sc-product-media">
+                <span class="sc-badge-discount">29% OFF</span>
+                <span class="sc-badge-stock in">In Stock</span>
+                <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_headphone.webp' %}" alt="Sonic Wave X1 headphones" /></a>
+                <button class="sc-wishlist-btn" type="button" aria-label="Add to wishlist" data-wishlist-btn><i class="bi bi-heart"></i></button>
+                <button class="sc-quickview-btn" type="button">Quick View</button>
+              </div>
+              <div class="sc-product-body">
+                <span class="sc-product-brand">AudioCore</span>
+                <h3 class="sc-product-name">Sonic Wave X1 Headphones</h3>
+                <div class="sc-product-rating">
+                  <span class="stars">★★★★★</span> 4.8 (1.2k)
                 </div>
+                <div class="sc-product-price">
+                  <span class="now">₹4,999</span><span class="was">₹6,999</span>
+                </div>
+                <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+              </div>
             </div>
+          </div>
+
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-product-card">
+              <div class="sc-product-media">
+                <span class="sc-badge-discount">25% OFF</span>
+                <span class="sc-badge-stock in">In Stock</span>
+                <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_smartwatch.png' %}" alt="PulseFit Series 5 watch" /></a>
+                <button class="sc-wishlist-btn" type="button" aria-label="Add to wishlist" data-wishlist-btn><i class="bi bi-heart"></i></button>
+                <button class="sc-quickview-btn" type="button">Quick View</button>
+              </div>
+              <div class="sc-product-body">
+                <span class="sc-product-brand">PulseFit</span>
+                <h3 class="sc-product-name">PulseFit Series 5 Watch</h3>
+                <div class="sc-product-rating">
+                  <span class="stars">★★★★☆</span> 4.6 (860)
+                </div>
+                <div class="sc-product-price">
+                  <span class="now">₹7,499</span><span class="was">₹9,999</span>
+                </div>
+                <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-product-card">
+              <div class="sc-product-media">
+                <span class="sc-badge-discount">18% OFF</span>
+                <span class="sc-badge-stock low">Only 3 left</span>
+                <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_laptop.png' %}" alt="AeroBook Slim 14 laptop" /></a>
+                <button class="sc-wishlist-btn" type="button" aria-label="Add to wishlist" data-wishlist-btn><i class="bi bi-heart"></i></button>
+                <button class="sc-quickview-btn" type="button">Quick View</button>
+              </div>
+              <div class="sc-product-body">
+                <span class="sc-product-brand">AeroTech</span>
+                <h3 class="sc-product-name">AeroBook Slim 14" Laptop</h3>
+                <div class="sc-product-rating">
+                  <span class="stars">★★★★★</span> 4.9 (2.1k)
+                </div>
+                <div class="sc-product-price">
+                  <span class="now">₹52,990</span><span class="was">₹64,990</span>
+                </div>
+                <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-product-card">
+              <div class="sc-product-media">
+                <span class="sc-badge-discount">21% OFF</span>
+                <span class="sc-badge-stock in">In Stock</span>
+                <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_phone.png' %}" alt="Nova 12X smartphone" /></a>
+                <button class="sc-wishlist-btn" type="button" aria-label="Add to wishlist" data-wishlist-btn><i class="bi bi-heart"></i></button>
+                <button class="sc-quickview-btn" type="button">Quick View</button>
+              </div>
+              <div class="sc-product-body">
+                <span class="sc-product-brand">NovaTech</span>
+                <h3 class="sc-product-name">Nova 12X Smartphone</h3>
+                <div class="sc-product-rating">
+                  <span class="stars">★★★★☆</span> 4.5 (3.4k)
+                </div>
+                <div class="sc-product-price">
+                  <span class="now">₹18,999</span><span class="was">₹23,999</span>
+                </div>
+                <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-</section>
 
-
-<!-- CATEGORIES -->
-<section class="categories">
-    <div class="container">
-        <h2 class="text-center mb-5 shop">Shop by Category</h2>
-
-        <div class="category-row">
-
-            <div class="category-col">
-                <a href="{% url 'prodcuts:product_list' %}">
-                <div class="category-box">
-                    <img src="{% static 'images/heading_headphone.webp' %}">
-                    <p>Headphones</p>
-                </div></a>
-            </div>
-
-            <div class="category-col">
-                <a href="{% url 'prodcuts:product_list' %}">
-                <div class="category-box">
-                    <img src="{% static 'images/heading_smartwatch.png' %}">
-                    <p>Smart Watches</p>
-                </div></a>
-            </div>
-
-            <div class="category-col">
-                <a href="{% url 'prodcuts:product_list' %}">
-                <div class="category-box">
-                    <img src="{% static 'images/heading_laptop.png' %}">
-                    <p>Laptops</p>
-                </div></a>
-            </div>
-
-            <div class="category-col">
-                <a href="{% url 'prodcuts:product_list' %}">
-                <div class="category-box" href>
-                    <img src="{% static 'images/heading_phone.png' %}">
-                    <p>Mobiles</p>
-                </div></a>
-            </div>
-
+        <div class="sc-view-all-wrap sc-reveal">
+          <a href="{% url 'prodcuts:product_list' %}" class="sc-btn sc-btn-outline" data-ripple>View All Products</a>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
+    <!--  ============================================================
+       PROMOTIONAL BANNER — season sale with live countdown
+       (end date set 7 days from page load — change data-countdown-end
+        to a real ISO datetime to run an actual sale window)
+       ============================================================  -->
+    <section class="sc-section" id="promo">
+      <div class="container-xxl">
+        <div class="sc-promo sc-reveal" id="scPromo" data-countdown-days="7">
+          <div class="row align-items-center">
+            <div class="col-lg-7">
+              <span class="sc-eyebrow"><i class="bi bi-stars"></i> Season Sale</span>
+              <h2>Limited Time Offer — Up to 50% Off</h2>
+              <p class="sub">Prices this good don't last. Grab your favorites before the timer runs out.</p>
 
-<!-- PRODUCTS -->
-<section class="products">
-    <div class="container">
-        <h2 class="text-center mb-5">Trending Products</h2>
+              <div class="sc-countdown" id="scCountdown">
+                <div class="unit">
+                  <span class="num" data-unit="days">--</span><span class="lbl">Days</span>
+                </div>
+                <div class="unit">
+                  <span class="num" data-unit="hours">--</span><span class="lbl">Hours</span>
+                </div>
+                <div class="unit">
+                  <span class="num" data-unit="minutes">--</span><span class="lbl">Mins</span>
+                </div>
+                <div class="unit">
+                  <span class="num" data-unit="seconds">--</span><span class="lbl">Secs</span>
+                </div>
+              </div>
 
-        <div class="row pro-row" style="gap: 20px;" max-width="300px">
-            <div class="col-md-3">
-                <a href="{% url 'prodcuts:product_list' %}">
-                <div class="product-card">
-                    <img src="{% static 'images/heading_headphone.webp' %}">
-                    <h6>Wireless Headphone</h6>
-                    <p>₹4,999</p>
-                    <button class="btn btn-dark w-100">Add to Cart</button>
-                </div></a>
+              <a href="{% url 'prodcuts:product_list' %}" class="sc-btn sc-btn-light" data-ripple>Shop the Sale</a>
             </div>
-
-            <div class="col-md-3">
-                <a href="{% url 'prodcuts:product_list' %}">
-                <div class="product-card">
-                    <img src="{% static 'images/heading_smartwatch.png' %}">
-                    <h6>Smart Watch Pro</h6>
-                    <p>₹6,999</p>
-                    <button class="btn btn-dark w-100">Add to Cart</button>
-                </div></a>
-            </div>
+          </div>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
+    <!--  ============================================================
+       WHY CHOOSE US
+       ============================================================  -->
+    <section class="sc-section sc-section-alt">
+      <div class="container-xxl">
+        <div class="sc-section-head text-center sc-reveal">
+          <span class="sc-eyebrow">Why SmartCart</span>
+          <h2 class="sc-section-title mt-3">Shopping made effortless</h2>
+          <p>Everything you'd expect from a store that puts customers first.</p>
+        </div>
 
-<!-- PROMO -->
-<section class="promo">
-    <div class="container text-center">
-        <h2>Upgrade Your Tech Today</h2>
-        <p>Flat 30% Off on Premium Gadgets</p>
-        <a href="{% url 'prodcuts:product_list' %}" class="btn btn-light btn-lg">Shop Deals</a>
-    </div>
-</section>
+        <div class="row g-4">
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-why-card">
+              <div class="sc-why-icon">
+                <i class="bi bi-truck"></i>
+              </div>
+              <h4>Fast Delivery</h4>
+              <p>Most orders arrive within 48 hours, tracked door to door.</p>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-why-card">
+              <div class="sc-why-icon">
+                <i class="bi bi-shield-lock"></i>
+              </div>
+              <h4>Secure Payments</h4>
+              <p>256-bit encrypted checkout with every major payment method.</p>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-why-card">
+              <div class="sc-why-icon">
+                <i class="bi bi-credit-card-2-back"></i>
+              </div>
+              <h4>Easy Returns</h4>
+              <p>7-day, no-questions-asked returns on all eligible products.</p>
+            </div>
+          </div>
+          <div class="col-6 col-lg-3 sc-reveal">
+            <div class="sc-why-card">
+              <div class="sc-why-icon">
+                <i class="bi bi-patch-check"></i>
+              </div>
+              <h4>Trusted Sellers</h4>
+              <p>Every seller is verified, rated, and monitored for quality.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <!--  ============================================================
+       TRENDING PRODUCTS — Bootstrap carousel, multi-card per slide
+       ============================================================  -->
+    <section class="sc-section">
+      <div class="container-xxl">
+        <div class="sc-section-head text-center sc-reveal">
+          <span class="sc-eyebrow">Right now</span>
+          <h2 class="sc-section-title mt-3">Trending Products</h2>
+          <p>What's moving fastest across SmartCart this week.</p>
+        </div>
+
+        <div id="scTrendingCarousel" class="carousel slide sc-trending-carousel sc-reveal" data-bs-ride="false">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row g-4">
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">30% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_headphone.webp' %}" alt="Buds Air earbuds" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">AudioCore</span>
+                      <h3 class="sc-product-name">Buds Air True Wireless Earbuds</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★★</span> 4.7 (980)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹2,499</span><span class="was">₹3,499</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">12% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_smartwatch.png' %}" alt="Chrono Lite band" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">PulseFit</span>
+                      <h3 class="sc-product-name">Chrono Lite Fitness Band</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★☆</span> 4.4 (540)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹1,799</span><span class="was">₹2,049</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">10% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_phone.png' %}" alt="Nova 12X Lite smartphone" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">NovaTech</span>
+                      <h3 class="sc-product-name">Nova 12X Lite Smartphone</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★☆</span> 4.3 (1.6k)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹15,999</span><span class="was">₹17,999</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">20% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_laptop.png' %}" alt="AeroBook Air laptop" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">AeroTech</span>
+                      <h3 class="sc-product-name">AeroBook Air 13" Laptop</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★★</span> 4.8 (740)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹41,990</span><span class="was">₹52,990</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="row g-4">
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">25% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_headphone.webp' %}" alt="Boom Mini speaker" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">AudioCore</span>
+                      <h3 class="sc-product-name">Boom Mini Bluetooth Speaker</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★☆</span> 4.5 (410)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹1,349</span><span class="was">₹1,799</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">15% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_smartwatch.png' %}" alt="PulseFit Mini watch" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">PulseFit</span>
+                      <h3 class="sc-product-name">PulseFit Mini Watch</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★☆</span> 4.4 (300)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹3,999</span><span class="was">₹4,699</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">8% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_phone.png' %}" alt="Nova 12X Pro smartphone" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">NovaTech</span>
+                      <h3 class="sc-product-name">Nova 12X Pro Smartphone</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★★</span> 4.7 (2.9k)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹27,999</span><span class="was">₹30,499</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                  <div class="sc-product-card">
+                    <div class="sc-product-media">
+                      <span class="sc-badge-discount">16% OFF</span>
+                      <a href="{% url 'prodcuts:product_list' %}"><img src="{% static 'images/heading_laptop.png' %}" alt="AeroBook Pro 15 laptop" /></a>
+                    </div>
+                    <div class="sc-product-body">
+                      <span class="sc-product-brand">AeroTech</span>
+                      <h3 class="sc-product-name">AeroBook Pro 15" Laptop</h3>
+                      <div class="sc-product-rating">
+                        <span class="stars">★★★★★</span> 4.9 (1.5k)
+                      </div>
+                      <div class="sc-product-price">
+                        <span class="now">₹68,990</span><span class="was">₹81,990</span>
+                      </div>
+                      <button class="sc-add-cart-btn" type="button"><i class="bi bi-bag-plus"></i> Add to Cart</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#scTrendingCarousel" data-bs-slide="prev"><span class="sc-carousel-arrow"><i class="bi bi-chevron-left"></i></span></button>
+          <button class="carousel-control-next" type="button" data-bs-target="#scTrendingCarousel" data-bs-slide="next"><span class="sc-carousel-arrow"><i class="bi bi-chevron-right"></i></span></button>
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#scTrendingCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#scTrendingCarousel" data-bs-slide-to="1"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--  ============================================================
+       CUSTOMER REVIEWS
+       ============================================================  -->
+    <section class="sc-section sc-section-alt">
+      <div class="container-xxl">
+        <div class="sc-section-head text-center sc-reveal">
+          <span class="sc-eyebrow">Customer Love</span>
+          <h2 class="sc-section-title mt-3">What shoppers are saying</h2>
+          <p>Real reviews from real SmartCart customers.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4 sc-reveal">
+            <div class="sc-testi-card">
+              <div class="sc-testi-stars">★★★★★</div>
+              <p class="sc-testi-quote">Ordered the AeroBook laptop and it arrived a day early, perfectly packed. Setup support was genuinely helpful too.</p>
+              <div class="sc-testi-person">
+                <span class="sc-testi-avatar">R</span>
+                <div>
+                  <strong>Riya Sharma</strong>
+                  <div class="sc-testi-meta">
+                    <span class="sc-verified-badge"><i class="bi bi-patch-check-fill"></i> Verified Buyer</span> · Bengaluru
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 sc-reveal">
+            <div class="sc-testi-card">
+              <div class="sc-testi-stars">★★★★★</div>
+              <p class="sc-testi-quote">Checkout is fast and tracking updates are accurate down to the hour. My Sonic Wave headphones sound incredible.</p>
+              <div class="sc-testi-person">
+                <span class="sc-testi-avatar">A</span>
+                <div>
+                  <strong>Arjun Mehta</strong>
+                  <div class="sc-testi-meta">
+                    <span class="sc-verified-badge"><i class="bi bi-patch-check-fill"></i> Verified Buyer</span> · Pune
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 sc-reveal">
+            <div class="sc-testi-card">
+              <div class="sc-testi-stars">★★★★☆</div>
+              <p class="sc-testi-quote">Had to return a smartwatch and the process took less than five minutes online — refund landed in two days.</p>
+              <div class="sc-testi-person">
+                <span class="sc-testi-avatar">N</span>
+                <div>
+                  <strong>Neha Kapoor</strong>
+                  <div class="sc-testi-meta">
+                    <span class="sc-verified-badge"><i class="bi bi-patch-check-fill"></i> Verified Buyer</span> · Delhi
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--  ============================================================
+       NEWSLETTER
+       ============================================================  -->
+    <section class="sc-section">
+      <div class="container-xxl">
+        <div class="sc-newsletter-box sc-reveal">
+          <h2>Get early access to deals</h2>
+          <p>Join our list for restock alerts, price drops, and offers before anyone else sees them.</p>
+          <form class="sc-newsletter-form" method="post" action="#">
+            {% csrf_token %}
+            <input type="email" name="email" placeholder="you@example.com" required aria-label="Email address" />
+            <button type="submit" class="sc-btn sc-btn-primary" data-ripple>Subscribe</button>
+          </form>
+          <p class="sc-newsletter-note">No spam. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

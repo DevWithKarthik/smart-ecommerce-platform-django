@@ -1,0 +1,48 @@
+/* ==========================================================================
+   ORDER.CSS — order success page
+   ========================================================================== */
+
+.order-success-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+}
+
+.order-success-card {
+    padding: 64px 44px;
+}
+
+.order-success-icon {
+    font-size: 2.6rem;
+    animation: sc-pop 500ms var(--sc-ease);
+}
+
+@keyframes sc-pop {
+    from {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.order-id-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--sc-bg-secondary);
+    border: 1px solid var(--sc-border);
+    border-radius: var(--sc-radius-pill);
+    padding: 10px 20px;
+    font-size: 14px;
+    color: var(--sc-text-secondary);
+}
+
+.order-id-badge strong {
+    color: var(--sc-text);
+    font-family: var(--sc-font-display);
+}

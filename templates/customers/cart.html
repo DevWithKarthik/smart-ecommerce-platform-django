@@ -1,101 +1,129 @@
-{% extends 'customers/base.html' %}\{% load static %}
+{% extends 'customers/base.html' %}
+{% load static %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/cart.css' %}?v=2" />
 {% endblock %}
 
 {% block content %}
-  <div class="container ccart mt-5">
-    <h2>Your Cart</h2>
+  <div class="sc-page">
+    <section class="sc-section cart-page">
+      <div class="container-xxl">
+        <nav class="sc-breadcrumb" aria-label="breadcrumb">
+          <a href="{% url 'home' %}">Home</a>
+          <span class="sep">/</span>
+          <a href="{% url 'prodcuts:product_list' %}">Products</a>
+          <span class="sep">/</span>
+          <span class="current">Your Cart</span>
+        </nav>
 
-    {% if cart_items %}
-      <div class="desktop-cart">
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Total</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for variant_id, item in cart_items %}
-              <tr>
-                <td>
-                  <img src="{{ item.image }}" width="60" />
-                  {{ item.product_name }}
+        <h1 class="sc-section-title mb-4 sc-reveal">Your Cart</h1>
 
-                  <br />
-                  <small>
-                    {% for attr in item.attributes %}
-                      {{ attr }}<br />
-                    {% endfor %}
-                  </small>
-                </td>
+        {% if cart_items %}
+          <div class="cart-grid sc-reveal">
+            <!-- LEFT: ITEMS -->
+            <div class="cart-items">
+              <!-- Desktop table -->
+              <div class="cart-table d-none d-lg-block">
+                <div class="cart-table-head">
+                  <span>Product</span>
+                  <span>Price</span>
+                  <span>Quantity</span>
+                  <span>Total</span>
+                  <span></span>
+                </div>
 
-                <td>₹{{ item.price }}</td>
-                <td>
-                  <div class="d-flex align-items-center gap-2">
-                    <a href="{% url 'cart:decrease_quantity' variant_id %}" class="btn btn-outline-secondary btn-sm">−</a>
+                {% for variant_id, item in cart_items %}
+                  <div class="cart-row">
+                    <div class="cart-row-product">
+                      <img src="{{ item.image }}" alt="{{ item.product_name }}" />
+                      <div>
+                        <h6>{{ item.product_name }}</h6>
+                        {% if item.attributes %}
+                          <div class="cart-row-attrs">
+                            {% for attr in item.attributes %}
+                              <span>{{ attr }}</span>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
 
-                    <span>{{ item.quantity }}</span>
+                    <div class="cart-row-price">₹{{ item.price }}</div>
 
-                    <a href="{% url 'cart:increase_quantity' variant_id %}" class="btn btn-outline-secondary btn-sm">+</a>
+                    <div class="cart-row-qty">
+                      <a href="{% url 'cart:decrease_quantity' variant_id %}" class="sc-icon-round sc-btn-sm" aria-label="Decrease quantity">−</a>
+                      <span>{{ item.quantity }}</span>
+                      <a href="{% url 'cart:increase_quantity' variant_id %}" class="sc-icon-round sc-btn-sm" aria-label="Increase quantity">+</a>
+                    </div>
+
+                    <div class="cart-row-total">₹{{ item.total_price }}</div>
+
+                    <div class="cart-row-remove">
+                      <a href="{% url 'cart:remove_from_cart' variant_id %}" class="sc-btn sc-btn-danger-ghost sc-btn-sm" aria-label="Remove item"><i class="bi bi-trash3"></i></a>
+                    </div>
                   </div>
-                </td>
-                <td>₹{{ item.total_price }}</td>
+                {% endfor %}
+              </div>
 
-                <td>
-                  <a href="{% url 'cart:remove_from_cart' variant_id %}" class="btn btn-danger btn-sm">Remove</a>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
+              <!-- Mobile cards -->
+              <div class="cart-cards d-lg-none">
+                {% for variant_id, item in cart_items %}
+                  <div class="cart-mobile-card">
+                    <div class="cart-mobile-top">
+                      <img src="{{ item.image }}" alt="{{ item.product_name }}" />
+                      <div>
+                        <h6>{{ item.product_name }}</h6>
+                        {% if item.attributes %}
+                          <div class="cart-row-attrs">
+                            {% for attr in item.attributes %}
+                              <span>{{ attr }}</span>
+                            {% endfor %}
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
 
-      <div class="mobile-cart">
-        {% for variant_id, item in cart_items %}
-          <div class="mobile-cart-card">
-            <div class="mobile-cart-top">
-              <img src="{{ item.image }}" alt="" width="80" />
-              <div>
-                <h6>{{ item.product_name }}</h6>
+                    <div class="cart-mobile-details">
+                      <span>Price: <strong>₹{{ item.price }}</strong></span>
 
-                {% for attr in item.attributes %}
-                  <small>{{ attr }}</small><br />
+                      <div class="cart-row-qty">
+                        <a href="{% url 'cart:decrease_quantity' variant_id %}" class="sc-icon-round sc-btn-sm" aria-label="Decrease quantity">−</a>
+                        <span>{{ item.quantity }}</span>
+                        <a href="{% url 'cart:increase_quantity' variant_id %}" class="sc-icon-round sc-btn-sm" aria-label="Increase quantity">+</a>
+                      </div>
+
+                      <span>Total: <strong>₹{{ item.total_price }}</strong></span>
+                    </div>
+
+                    <a href="{% url 'cart:remove_from_cart' variant_id %}" class="cart-mobile-remove">Remove</a>
+                  </div>
                 {% endfor %}
               </div>
             </div>
 
-            <div class="mobile-cart-details">
-              <p>
-                <strong>Price:</strong> ₹{{ item.price }}
-              </p>
-
-              <div class="qty-mobile">
-                <a href="{% url 'cart:decrease_quantity' variant_id %}" class="qty-btn">−</a>
-                <span>{{ item.quantity }}</span>
-                <a href="{% url 'cart:increase_quantity' variant_id %}" class="qty-btn">+</a>
+            <!-- RIGHT: ORDER SUMMARY -->
+            <aside class="cart-summary">
+              <h5>Order Summary</h5>
+              <div class="cart-summary-row">
+                <span>Grand Total</span>
+                <strong>₹{{ total }}</strong>
               </div>
-
-              <p>
-                <strong>Total:</strong> ₹{{ item.total_price }}
-              </p>
-            </div>
-
-            <a href="{% url 'cart:remove_from_cart' variant_id %}" class="remove-mobile">Remove</a>
+              <a href="{% url 'orders:checkout' %}" class="sc-btn sc-btn-primary sc-btn-block mt-3" data-ripple>Proceed to Checkout <i class="bi bi-arrow-right"></i></a>
+              <a href="{% url 'prodcuts:product_list' %}" class="sc-btn sc-btn-outline sc-btn-block mt-2" data-ripple>Continue Shopping</a>
+            </aside>
           </div>
-        {% endfor %}
+        {% else %}
+          <div class="sc-state-card sc-reveal">
+            <div class="sc-state-icon neutral">
+              <i class="bi bi-cart-x"></i>
+            </div>
+            <h3 class="mb-2">Your cart is empty</h3>
+            <p class="sc-text-muted mb-4">Looks like you haven't added anything yet.</p>
+            <a href="{% url 'prodcuts:product_list' %}" class="sc-btn sc-btn-primary" data-ripple>Start Shopping</a>
+          </div>
+        {% endif %}
       </div>
-
-      <h4 class="text-end">Grand Total: ₹{{ total }}</h4>
-
-      <a href="{% url 'orders:checkout' %}" class="btn btn-success">Proceed to Checkout</a>
-    {% else %}
-      <p>Your cart is empty.</p>
-    {% endif %}
+    </section>
   </div>
 {% endblock %}
