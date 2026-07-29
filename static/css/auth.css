@@ -1,0 +1,167 @@
+/* ==========================================================================
+   AUTH.CSS — login, signup (customer/seller/delivery), waiting-approval
+   Light theme, matches the homepage. Reuses .sc-input/.sc-label/.sc-btn
+   from the shared style.css.
+   ========================================================================== */
+
+.auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 84px);
+    padding: 40px 16px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+    background: var(--sc-card);
+    border: 1px solid var(--sc-border);
+    border-radius: var(--sc-radius-lg);
+    padding: 44px 36px;
+    box-shadow: var(--sc-shadow-sm);
+}
+
+.auth-card.auth-card-wide {
+    max-width: 520px;
+}
+
+.auth-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    margin: 0 auto 20px;
+    background: var(--sc-primary-50);
+    color: var(--sc-primary);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--sc-text-secondary);
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.auth-footnote {
+    text-align: center;
+    font-size: 14px;
+    color: var(--sc-text-secondary);
+    margin-top: 22px;
+}
+
+.auth-footnote a {
+    color: var(--sc-primary);
+    font-weight: 600;
+}
+
+.auth-footnote a:hover {
+    color: var(--sc-primary-hover);
+}
+
+/* Role switcher (segmented pill control) */
+.auth-role-switch {
+    display: flex;
+    gap: 6px;
+    background: var(--sc-bg-secondary);
+    border-radius: var(--sc-radius-pill);
+    padding: 5px;
+    margin-top: 26px;
+}
+
+.auth-role-switch a {
+    flex: 1;
+    text-align: center;
+    padding: 9px 0;
+    border-radius: var(--sc-radius-pill);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sc-text-secondary);
+    transition: background var(--sc-speed), color var(--sc-speed);
+}
+
+.auth-role-switch a:hover {
+    color: var(--sc-text);
+}
+
+.auth-role-switch a.active {
+    background: #fff;
+    color: var(--sc-primary);
+    box-shadow: var(--sc-shadow-xs);
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 26px 0 4px;
+    color: var(--sc-text-secondary);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--sc-border);
+}
+
+.auth-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--sc-danger-bg);
+    color: #B91C1C;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--sc-radius-sm);
+    padding: 12px 14px;
+    font-size: 13px;
+    margin-top: 18px;
+}
+
+.auth-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--sc-bg-secondary);
+    border-radius: var(--sc-radius-sm);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--sc-text-secondary);
+    margin-top: 22px;
+}
+
+.auth-note i {
+    color: var(--sc-primary);
+    margin-top: 1px;
+}
+
+.checkout-form-row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 480px) {
+    .checkout-form-row-2 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Waiting-approval state page reuses .sc-state-card from style.css */
+.auth-page.waiting-page .sc-state-card {
+    max-width: 480px;
+}
