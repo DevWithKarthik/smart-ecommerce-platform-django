@@ -1,39 +1,102 @@
-{% extends "customers/base.html" %}
+{% extends 'customers/base.html' %}
 {% load static %}
 
 {% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/product_list.css' %}?v=2">
+  <link rel="stylesheet" href="{% static 'css/product_list.css' %}?v=3" />
 {% endblock %}
 
 {% block content %}
-<section class="shop-page">
+  <div class="sc-page">
+    <section class="sc-section shop-page">
+      <div class="container-xxl">
+        <nav class="sc-breadcrumb" aria-label="breadcrumb">
+          <a href="{% url 'home' %}">Home</a>
+          <span class="sep">/</span>
+          <span class="current">Products</span>
+        </nav>
 
-    <div class="shop-header">
-        <h1>Explore Products</h1>
-        <p>Discover premium tech crafted for the future.</p>
-    </div>
-
-    <div class="product-grid">
-        {% for product in products %}
-        <div class="product-card">
-
-            <div class="product-image">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-                <div class="overlay">
-                    <a href="{% url 'prodcuts:product_detail' product.id %}" class="view-btn">
-                        View Details
-                    </a>
-                </div>
-            </div>
-
-            <div class="product-info">
-                <h3>{{ product.name }}</h3>
-                <p class="price">₹ {{ product.base_price }}</p>
-            </div>
-
+        <div class="shop-header sc-reveal">
+          <span class="sc-eyebrow"><i class="bi bi-grid-3x3-gap-fill"></i> Full catalogue</span>
+          <h1 class="mt-3">Explore Products</h1>
+          <p>Discover premium tech crafted for the future.</p>
         </div>
-        {% endfor %}
-    </div>
 
-</section>
+        {% if products %}
+          <div class="shop-toolbar sc-reveal">
+            <span class="count">
+              {% if products.paginator %}
+                Showing {{ products.start_index }}–{{ products.end_index }} of {{ products.paginator.count }} products
+              {% else %}
+                {{ products|length }} products
+              {% endif %}
+            </span>
+          </div>
+
+          <div class="product-grid">
+            {% for product in products %}
+              <div class="sc-product-card sc-reveal">
+                <div class="sc-product-media">
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}" />
+                  <div class="sc-media-overlay">
+                    <a href="{% url 'prodcuts:product_detail' product.id %}" class="sc-btn sc-btn-primary sc-btn-sm" data-ripple>View Details</a>
+                  </div>
+                </div>
+
+                <div class="sc-product-body text-center">
+                  <h3 class="sc-product-name">{{ product.name }}</h3>
+                  <p class="sc-product-price justify-content-center">
+                    <span class="now">₹{{ product.base_price }}</span>
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <!--  ==========================================================
+           PAGINATION
+           Requires the view to paginate the queryset, e.g.:
+
+             from django.core.paginator import Paginator
+             paginator = Paginator(products_qs, 12)
+             products = paginator.get_page(request.GET.get('page'))
+
+           If `products` is a plain queryset (no .paginator attribute),
+           this block simply won't render — nothing breaks either way.
+           ==========================================================  -->
+          {% if products.paginator and products.paginator.num_pages > 1 %}
+            <nav class="sc-pagination" aria-label="Product pages">
+              {% if products.has_previous %}
+                <a href="?page={{ products.previous_page_number }}" aria-label="Previous"><i class="bi bi-chevron-left"></i></a>
+              {% else %}
+                <span class="disabled"><i class="bi bi-chevron-left"></i></span>
+              {% endif %}
+
+              {% for num in products.paginator.page_range %}
+                {% if num == products.number %}
+                  <span class="current">{{ num }}</span>
+                {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                  <a href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+              {% endfor %}
+
+              {% if products.has_next %}
+                <a href="?page={{ products.next_page_number }}" aria-label="Next"><i class="bi bi-chevron-right"></i></a>
+              {% else %}
+                <span class="disabled"><i class="bi bi-chevron-right"></i></span>
+              {% endif %}
+            </nav>
+          {% endif %}
+        {% else %}
+          <div class="sc-state-card sc-reveal">
+            <div class="sc-state-icon neutral">
+              <i class="bi bi-search"></i>
+            </div>
+            <h3 class="mb-2">No products found</h3>
+            <p class="sc-text-muted mb-4">Check back soon — new arrivals are added regularly.</p>
+            <a href="{% url 'home' %}" class="sc-btn sc-btn-primary" data-ripple>Back to Home</a>
+          </div>
+        {% endif %}
+      </div>
+    </section>
+  </div>
 {% endblock %}

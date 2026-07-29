@@ -1,14 +1,30 @@
 {% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/order.css' %}" />
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5 text-center">
+  <div class="sc-page">
+    <section class="sc-section order-success-page">
+      <div class="container-xxl">
+        <div class="sc-state-card order-success-card sc-reveal">
+          <div class="sc-state-icon success order-success-icon">
+            <i class="bi bi-check-lg"></i>
+          </div>
 
-  <h2>🎉 Order Placed Successfully!</h2>
-  <p>Your Order ID is <strong>#{{ order_id }}</strong></p>
+          <span class="sc-eyebrow mb-3">Order Confirmed</span>
+          <h2 class="mb-3">Order Placed Successfully!</h2>
+          <p class="sc-text-muted mb-4">Thank you for shopping with SmartCart. A confirmation has been recorded against your order.</p>
 
-  <a href="{% url 'prodcuts:product_list' %}" class="btn btn-dark mt-3">
-    Continue Shopping
-  </a>
+          <div class="order-id-badge">
+            Order ID <strong>#{{ order_id }}</strong>
+          </div>
 
-</div>
+          <a href="{% url 'prodcuts:product_list' %}" class="sc-btn sc-btn-primary mt-4" data-ripple>Continue Shopping <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+  </div>
 {% endblock %}

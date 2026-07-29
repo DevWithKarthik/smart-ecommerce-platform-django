@@ -2,69 +2,91 @@
 {% load static %}
 
 {% block extra_css %}
-  <link rel="stylesheet" href="{% static 'css/product_detail.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/product_detail.css' %}?v=2" />
 {% endblock %}
 
 {% block content %}
-  <div class="product-container">
-    <!-- LEFT SIDE IMAGE -->
-    <div class="product-left">
-      <img src="{{ product.image.url }}" alt="{{ product.name }}" />
-    </div>
+  <div class="sc-page">
+    <section class="sc-section pdp-page">
+      <div class="container-xxl">
+        <nav class="sc-breadcrumb" aria-label="breadcrumb">
+          <a href="{% url 'home' %}">Home</a>
+          <span class="sep">/</span>
+          <a href="{% url 'prodcuts:product_list' %}">Products</a>
+          <span class="sep">/</span>
+          <span class="current">{{ product.name }}</span>
+        </nav>
 
-    <!-- RIGHT SIDE DETAILS -->
-    <div class="product-right">
-      <h1 class="product-title">{{ product.name }}</h1>
-
-      <p class="product-price">₹{{ product.base_price }}</p>
-
-      <p class="product-description">{{ product.description }}</p>
-
-      <!-- ========================= -->
-      <!-- DYNAMIC ATTRIBUTES -->
-      <!-- ========================= -->
-
-      {% for attr_name, values in attributes.items %}
-        <div class="attribute-group">
-          <p class="attribute-title">{{ attr_name }}</p>
-
-          <div class="attribute-options">
-            {% for value in values %}
-              <button type="button" class="attribute-btn" data-attribute="{{ attr_name }}" data-value="{{ value.id }}">{{ value.value }}</button>
-            {% endfor %}
+        <div class="pdp-grid sc-reveal">
+          <!-- LEFT: IMAGE -->
+          <div class="pdp-media">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" />
           </div>
-        </div>
-      {% endfor %}
 
-      <!-- Quantity -->
-      <div class="qty-section">
-        <p><strong>Available Stock: {{ total_stock }}</strong></p>
-      </div>
+          <!-- RIGHT: DETAILS -->
+          <div class="pdp-info">
+            <h1 class="pdp-title">{{ product.name }}</h1>
 
-      <!-- Add to Cart (temporary button only) -->
-      <form method="post" action="{% url 'cart:add_to_cart' product.id %}">
-        {% csrf_token %}
+            <div class="pdp-price-row">
+              <span class="pdp-price">₹{{ product.base_price }}</span>
+              {% if total_stock > 0 %}
+                <span class="sc-badge-stock in pdp-stock-badge">In Stock</span>
+              {% else %}
+                <span class="sc-badge-stock low pdp-stock-badge">Out of Stock</span>
+              {% endif %}
+            </div>
 
-        {% for attr_name, values in attributes.items %}
-          <div class="mb-3">
-            <label><strong>{{ attr_name }}</strong></label>
-            <select name="attribute_{{ attr_name }}" class="form-select" required>
-              <option value="">Select {{ attr_name }}</option>
-              {% for value in values %}
-                <option value="{{ value.id }}">{{ value.value }}</option>
+            <p class="pdp-description">{{ product.description }}</p>
+
+            <!-- ========================= -->
+            <!-- ADD TO CART FORM -->
+            <!-- attribute field names/values unchanged: attribute_{{ attr_name }} -->
+            <!-- ========================= -->
+            <form method="post" action="{% url 'cart:add_to_cart' product.id %}" class="pdp-form" id="pdpForm">
+              {% csrf_token %}
+
+              {% for attr_name, values in attributes.items %}
+                <div class="pdp-attribute-group">
+                  <p class="pdp-attribute-title">{{ attr_name }}</p>
+                  <div class="pdp-pill-options" data-attribute-group>
+                    {% for value in values %}
+                      <input type="radio" name="attribute_{{ attr_name }}" id="attr-{{ attr_name|slugify }}-{{ value.id }}" value="{{ value.id }}" class="pdp-pill-input" required />
+                      <label class="pdp-pill-label" for="attr-{{ attr_name|slugify }}-{{ value.id }}">{{ value.value }}</label>
+                    {% endfor %}
+                  </div>
+                </div>
               {% endfor %}
-            </select>
+
+              <div class="pdp-qty-row">
+                <label class="sc-label" for="pdpQty">Quantity</label>
+                <div class="pdp-qty-stepper">
+                  <button type="button" class="sc-icon-round" id="pdpQtyMinus" aria-label="Decrease quantity"><i class="bi bi-dash"></i></button>
+                  <input type="number" name="quantity" id="pdpQty" value="1" min="1" class="pdp-qty-input" />
+                  <button type="button" class="sc-icon-round" id="pdpQtyPlus" aria-label="Increase quantity"><i class="bi bi-plus"></i></button>
+                </div>
+                <span class="pdp-stock-note">{{ total_stock }} units available</span>
+              </div>
+
+              <button type="submit" class="sc-btn sc-btn-primary sc-btn-block" data-ripple><i class="bi bi-bag-plus"></i> Add To Cart</button>
+            </form>
+
+            <!-- Trust row (generic, not tied to product-specific data) -->
+            <div class="pdp-trust-row">
+              <div>
+                <i class="bi bi-patch-check"></i> Genuine Product
+              </div>
+              <div>
+                <i class="bi bi-arrow-repeat"></i> 7-Day Returns
+              </div>
+              <div>
+                <i class="bi bi-shield-lock"></i> Secure Payment
+              </div>
+            </div>
           </div>
-        {% endfor %}
-
-        <div class="mb-3">
-          <label>Quantity</label>
-          <input type="number" name="quantity" value="1" min="1" class="form-control" />
         </div>
-
-        <button type="submit" class="btn btn-dark w-100">Add To Cart</button>
-      </form>
-      
-    </div>
+      </div>
+    </section>
   </div>
+
+  <script src="{% static 'js/product_detail.js' %}"></script>
 {% endblock %}

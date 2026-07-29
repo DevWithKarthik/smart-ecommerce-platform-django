@@ -1,48 +1,99 @@
 {% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/checkout.css' %}" />
+{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+  <div class="sc-page">
+    <section class="sc-section checkout-page">
+      <div class="container-xxl">
+        <nav class="sc-breadcrumb" aria-label="breadcrumb">
+          <a href="{% url 'home' %}">Home</a>
+          <span class="sep">/</span>
+          <a href="{% url 'cart:cart_detail' %}">Cart</a>
+          <span class="sep">/</span>
+          <span class="current">Checkout</span>
+        </nav>
 
-  <h2>Checkout</h2>
-
-  <div class="row mt-4">
-
-    <!-- LEFT: ADDRESS FORM -->
-    <div class="col-md-6">
-      <form method="post">
-        {% csrf_token %}
-
-        <input type="text" name="full_name" class="form-control mb-3" placeholder="Full Name" required>
-        <input type="text" name="phone" class="form-control mb-3" placeholder="Phone Number" required>
-        <textarea name="address" class="form-control mb-3" placeholder="Address" required></textarea>
-        <input type="text" name="city" class="form-control mb-3" placeholder="City" required>
-        <input type="text" name="state" class="form-control mb-3" placeholder="State" required>
-        <input type="text" name="pincode" class="form-control mb-3" placeholder="Pincode" required>
-
-        <button type="submit" class="btn btn-dark w-100">
-          Place Order
-        </button>
-
-      </form>
-    </div>
-
-    <!-- RIGHT: ORDER SUMMARY -->
-    <div class="col-md-6">
-      <h5>Order Summary</h5>
-      <hr>
-
-      {% for variant_id, item in cart_items %}
-        <div class="d-flex justify-content-between mb-2">
-          <span>{{ item.product_name }} (x{{ item.quantity }})</span>
-          <span>₹{{ item.total_price }}</span>
+        <div class="checkout-steps sc-reveal">
+          <div class="step done">
+            <span class="dot"><i class="bi bi-check"></i></span> Cart
+          </div>
+          <div class="step-line"></div>
+          <div class="step active">
+            <span class="dot">2</span> Checkout
+          </div>
+          <div class="step-line"></div>
+          <div class="step">
+            <span class="dot">3</span> Confirmation
+          </div>
         </div>
-      {% endfor %}
 
-      <hr>
-      <h5 class="text-end">Total: ₹{{ total }}</h5>
-    </div>
+        <h1 class="sc-section-title mb-4 sc-reveal">Checkout</h1>
 
+        <div class="checkout-grid sc-reveal">
+          <!-- LEFT: ADDRESS FORM -->
+          <div class="checkout-form-card">
+            <h5>Delivery Address</h5>
+            <form method="post">
+              {% csrf_token %}
+
+              <div class="sc-field">
+                <label class="sc-label" for="ckFullName">Full Name</label>
+                <input type="text" id="ckFullName" name="full_name" class="sc-input" placeholder="Your full name" required />
+              </div>
+
+              <div class="sc-field">
+                <label class="sc-label" for="ckPhone">Phone Number</label>
+                <input type="text" id="ckPhone" name="phone" class="sc-input" placeholder="10-digit mobile number" required />
+              </div>
+
+              <div class="sc-field">
+                <label class="sc-label" for="ckAddress">Address</label>
+                <textarea id="ckAddress" name="address" class="sc-textarea" placeholder="House no., street, locality" required></textarea>
+              </div>
+
+              <div class="checkout-form-row">
+                <div class="sc-field">
+                  <label class="sc-label" for="ckCity">City</label>
+                  <input type="text" id="ckCity" name="city" class="sc-input" placeholder="City" required />
+                </div>
+                <div class="sc-field">
+                  <label class="sc-label" for="ckState">State</label>
+                  <input type="text" id="ckState" name="state" class="sc-input" placeholder="State" required />
+                </div>
+                <div class="sc-field">
+                  <label class="sc-label" for="ckPincode">Pincode</label>
+                  <input type="text" id="ckPincode" name="pincode" class="sc-input" placeholder="Pincode" required />
+                </div>
+              </div>
+
+              <button type="submit" class="sc-btn sc-btn-primary sc-btn-block mt-3" data-ripple>Place Order <i class="bi bi-arrow-right"></i></button>
+            </form>
+          </div>
+
+          <!-- RIGHT: ORDER SUMMARY -->
+          <aside class="cart-summary checkout-summary">
+            <h5>Order Summary</h5>
+
+            <div class="checkout-summary-items">
+              {% for variant_id, item in cart_items %}
+                <div class="checkout-summary-item">
+                  <span>{{ item.product_name }} <span class="qty">× {{ item.quantity }}</span></span>
+                  <span>₹{{ item.total_price }}</span>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="cart-summary-row">
+              <span>Total</span>
+              <strong>₹{{ total }}</strong>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
   </div>
-
-</div>
 {% endblock %}
