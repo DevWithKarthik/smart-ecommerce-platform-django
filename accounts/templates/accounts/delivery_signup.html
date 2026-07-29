@@ -1,27 +1,59 @@
 {% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
 
 {% block content %}
-  <div class="container mt-5" style="max-width:500px;">
-    <h2>Delivery Partner Registration</h2>
+<div class="sc-page">
+<div class="auth-page">
+  <div class="auth-card auth-card-wide sc-reveal">
+
+    <div class="auth-icon"><i class="bi bi-truck"></i></div>
+    <h1 class="auth-title">Delivery Partner Registration</h1>
+    <p class="auth-subtitle">Join SmartCart's delivery network.</p>
 
     <form method="POST">
       {% csrf_token %}
 
-      <input type="text" name="username" class="form-control mb-3" placeholder="Username" required />
+      <div class="sc-field">
+        <label class="sc-label" for="dsUsername">Username</label>
+        <input type="text" id="dsUsername" name="username" class="sc-input" placeholder="Choose a username" required autofocus>
+      </div>
 
-      <input type="email" name="email" class="form-control mb-3" placeholder="Email" required />
+      <div class="sc-field">
+        <label class="sc-label" for="dsEmail">Email</label>
+        <input type="email" id="dsEmail" name="email" class="sc-input" placeholder="you@example.com" required>
+      </div>
 
-      <input type="password" name="password" class="form-control mb-3" placeholder="Password" required />
+      <div class="sc-field">
+        <label class="sc-label" for="dsPassword">Password</label>
+        <input type="password" id="dsPassword" name="password" class="sc-input" placeholder="Create a password" required>
+      </div>
 
-      <input type="text" name="hub_name" class="form-control mb-3" placeholder="Hub Name" required />
+      <div class="sc-field">
+        <label class="sc-label" for="dsHubName">Hub Name</label>
+        <input type="text" id="dsHubName" name="hub_name" class="sc-input" placeholder="Name of your delivery hub" required>
+      </div>
 
-      <input type="number" name="hub_area" class="form-control mb-3" placeholder="Hub Area (sqft)" required />
+      <div class="checkout-form-row-2">
+        <div class="sc-field">
+          <label class="sc-label" for="dsHubArea">Hub Area (sqft)</label>
+          <input type="number" id="dsHubArea" name="hub_area" class="sc-input" placeholder="e.g. 1200" required>
+        </div>
+        <div class="sc-field">
+          <label class="sc-label" for="dsEmployees">Number of Employees</label>
+          <input type="number" id="dsEmployees" name="employees" class="sc-input" placeholder="e.g. 5" required>
+        </div>
+      </div>
 
-      <input type="number" name="employees" class="form-control mb-3" placeholder="Number of Employees" required />
-
-      <button type="submit">Register Delivery Partner</button>
+      <button type="submit" class="sc-btn sc-btn-primary sc-btn-block" data-ripple>Register Delivery Partner</button>
     </form>
 
-    <p>Admin will review and approve your account.</p>
+    <div class="auth-note"><i class="bi bi-info-circle-fill"></i> Admin will review and approve your account.</div>
+
   </div>
+</div>
+</div>
 {% endblock %}

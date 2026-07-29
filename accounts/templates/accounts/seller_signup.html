@@ -1,27 +1,58 @@
 {% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
 
 {% block content %}
-  <div class="container mt-5" style="max-width:420px;">
-    <h2>Seller Registration</h2>
+<div class="sc-page">
+<div class="auth-page">
+  <div class="auth-card auth-card-wide sc-reveal">
+
+    <div class="auth-icon"><i class="bi bi-shop"></i></div>
+    <h1 class="auth-title">Seller Registration</h1>
+    <p class="auth-subtitle">Set up your storefront on SmartCart.</p>
 
     <form method="POST">
       {% csrf_token %}
 
-      <input type="text" name="username" class="form-control mb-3" placeholder="Username" required />
+      <div class="sc-field">
+        <label class="sc-label" for="ssUsername">Username</label>
+        <input type="text" id="ssUsername" name="username" class="sc-input" placeholder="Choose a username" required autofocus>
+      </div>
 
-      <input type="email" name="email" class="form-control mb-3" placeholder="Email" required />
+      <div class="sc-field">
+        <label class="sc-label" for="ssEmail">Email</label>
+        <input type="email" id="ssEmail" name="email" class="sc-input" placeholder="you@example.com" required>
+      </div>
 
-      <input type="password" name="password" class="form-control mb-3" placeholder="Password" required />
+      <div class="sc-field">
+        <label class="sc-label" for="ssPassword">Password</label>
+        <input type="password" id="ssPassword" name="password" class="sc-input" placeholder="Create a password" required>
+      </div>
 
-      <input type="text" name="business_name" class="form-control mb-3" placeholder="Business Name" required />
+      <div class="sc-field">
+        <label class="sc-label" for="ssBusinessName">Business Name</label>
+        <input type="text" id="ssBusinessName" name="business_name" class="sc-input" placeholder="Your business name" required>
+      </div>
 
-      <input type="text" name="gst_number" class="form-control mb-3" placeholder="GST Number" required />
+      <div class="sc-field">
+        <label class="sc-label" for="ssGst">GST Number</label>
+        <input type="text" id="ssGst" name="gst_number" class="sc-input" placeholder="e.g. 22AAAAA0000A1Z5" required>
+      </div>
 
-      <textarea name="address" class="form-control mb-4" placeholder="Business Address"></textarea>
+      <div class="sc-field">
+        <label class="sc-label" for="ssAddress">Business Address</label>
+        <textarea id="ssAddress" name="address" class="sc-textarea" placeholder="Registered business address"></textarea>
+      </div>
 
-      <button type="submit">Register Seller</button>
+      <button type="submit" class="sc-btn sc-btn-primary sc-btn-block" data-ripple>Register Seller</button>
     </form>
 
-    <p>Your account will be activated after admin approval.</p>
+    <div class="auth-note"><i class="bi bi-info-circle-fill"></i> Your account will be activated after admin approval.</div>
+
   </div>
+</div>
+</div>
 {% endblock %}

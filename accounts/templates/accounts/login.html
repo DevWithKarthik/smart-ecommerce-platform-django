@@ -1,52 +1,64 @@
 {% extends 'customers/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}" />
+{% endblock %}
 
 {% block content %}
-  <div class="container mt-5" style="max-width:420px;">
-    <h3 class="mb-4 text-center">{{ role }} Login</h3>
+  <div class="sc-page">
+    <div class="auth-page">
+      <div class="auth-card sc-reveal">
+        <div class="auth-icon">
+          <i class="bi bi-person-lock"></i>
+        </div>
+        <h1 class="auth-title">{{ role|title }} Login</h1>
+        <p class="auth-subtitle">Welcome back — sign in to continue.</p>
 
-    <!-- LOGIN FORM -->
-    <form method="post">
-      {% csrf_token %}
+        <form method="post">
+          {% csrf_token %}
 
-      <input type="text" name="username" class="form-control mb-3" placeholder="Username" required />
+          <div class="sc-field">
+            <label class="sc-label" for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" name="username" class="sc-input" placeholder="Enter your username" required autofocus />
+          </div>
 
-      <input type="password" name="password" class="form-control mb-3" placeholder="Password" required />
+          <div class="sc-field">
+            <label class="sc-label" for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="password" class="sc-input" placeholder="Enter your password" required />
+          </div>
 
-      <button type="submit" class="btn btn-dark w-100">Login</button>
-    </form>
+          <button type="submit" class="sc-btn sc-btn-primary sc-btn-block" data-ripple>Login</button>
+        </form>
 
-    <!-- SIGNUP -->
-    {% if role == 'CUSTOMER' %}
-      <p class="text-center mt-3">
-        Don't have an account?
-        <a href="{% url 'accounts:customer_signup' %}">Sign up</a>
-      </p>
-    {% elif role == 'SELLER' %}
-      <p class="text-center mt-3">
-        Want to sell products?
-        <a href="{% url 'accounts:seller_signup' %}">Register as Seller</a>
-      </p>
-    {% elif role == 'DELIVERY' %}
-      <p class="text-center mt-3">
-        Become a delivery partner?
-        <a href="{% url 'accounts:delivery_signup' %}">Apply Now</a>
-      </p>
-    {% endif %}
+        {% if role == 'CUSTOMER' %}
+          <p class="auth-footnote">
+            Don't have an account? <a href="{% url 'accounts:customer_signup' %}">Sign up</a>
+          </p>
+        {% elif role == 'SELLER' %}
+          <p class="auth-footnote">
+            Want to sell products? <a href="{% url 'accounts:seller_signup' %}">Register as Seller</a>
+          </p>
+        {% elif role == 'DELIVERY' %}
+          <p class="auth-footnote">
+            Become a delivery partner? <a href="{% url 'accounts:delivery_signup' %}">Apply Now</a>
+          </p>
+        {% endif %}
 
-    <!-- ROLE SWITCH -->
-    <hr />
+        <div class="auth-divider">Login as</div>
 
-    <div class="text-center mt-3">
-      <a href="{% url 'accounts:login' %}" class="btn btn-outline-dark btn-sm m-1">Customer</a>
+        <div class="auth-role-switch">
+          <a href="{% url 'accounts:login' %}" class="{% if role == 'CUSTOMER' %}active{% endif %}">Customer</a>
+          <a href="{% url 'accounts:seller_login' %}" class="{% if role == 'SELLER' %}active{% endif %}">Seller</a>
+          <a href="{% url 'accounts:delivery_login' %}" class="{% if role == 'DELIVERY' %}active{% endif %}">Delivery</a>
+        </div>
 
-      <a href="{% url 'accounts:seller_login' %}" class="btn btn-outline-dark btn-sm m-1">Seller</a>
-
-      <a href="{% url 'accounts:delivery_login' %}" class="btn btn-outline-dark btn-sm m-1">Delivery</a>
+        {% for message in messages %}
+          <div class="auth-alert">
+            <i class="bi bi-exclamation-circle-fill"></i> {{ message }}
+          </div>
+        {% endfor %}
+      </div>
     </div>
-
-    <!-- ERROR MESSAGES -->
-    {% for message in messages %}
-      <div class="alert alert-danger mt-3">{{ message }}</div>
-    {% endfor %}
   </div>
 {% endblock %}
