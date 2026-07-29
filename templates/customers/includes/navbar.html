@@ -1,65 +1,91 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-black">
-  <div class="container">
+{% load static %}
+<nav class="navbar navbar-expand-lg fixed-top sc-navbar" id="scNavbar">
+  <div class="container-xxl">
     <!-- LOGO -->
-    <a class="navbar-brand fw-bold" href="{% url 'home' %}">KARBEX</a>
+    <a class="navbar-brand sc-brand" href="{% url 'home' %}"><span class="sc-brand-dot"></span>SmartCart</a>
 
     <!-- MOBILE TOGGLE -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu"><span class="navbar-toggler-icon"></span></button>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#scMenu" aria-controls="scMenu" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
-    <div class="collapse navbar-collapse" id="menu">
+    <div class="collapse navbar-collapse" id="scMenu">
       <!-- LEFT MENU -->
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto mb-3 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'home' %}">Home</a>
+          <a class="nav-link sc-nav-link active" href="{% url 'home' %}">Home</a>
         </li>
-
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'prodcuts:product_list' %}">Shop</a>
+          <a class="nav-link sc-nav-link" href="#categories">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sc-nav-link" href="{% url 'prodcuts:product_list' %}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link sc-nav-link" href="#promo">Offers</a>
         </li>
       </ul>
 
+      <!-- SEARCH -->
+      <form class="sc-search d-flex align-items-center mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'prodcuts:product_list' %}" method="get">
+        <input type="search" name="q" placeholder="Search products, brands…" aria-label="Search products" />
+        <button type="submit" aria-label="Search"><i class="bi bi-search"></i></button>
+      </form>
+
       <!-- RIGHT ICONS -->
-      <ul class="navbar-nav nav-icons align-items-center">
+      <ul class="navbar-nav nav-icons align-items-lg-center gap-lg-1">
         <li class="nav-item">
-          <i class="bi bi-search nav-icon"></i>
+          <!-- No wishlist URL defined yet in urls.py — points to # until a real view exists -->
+          <a class="nav-link sc-icon-btn" href="#" aria-label="Wishlist">
+            <i class="bi bi-heart"></i>
+            {% if wishlist_count %}
+              <span class="sc-icon-badge">{{ wishlist_count }}</span>
+            {% endif %}
+          </a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link position-relative" href="{% url 'cart:cart_detail' %}">
-            <i class="bi bi-cart nav-icon"></i>
-
+          <a class="nav-link sc-icon-btn" href="{% url 'cart:cart_detail' %}" aria-label="Cart">
+            <i class="bi bi-bag"></i>
             {% if cart_count %}
-              <span class="cart-badge">{{ cart_count }}</span>
+              <span class="sc-icon-badge">{{ cart_count }}</span>
             {% endif %}
           </a>
         </li>
 
-        <!-- USER DROPDOWN -->
+        <!-- PROFILE DROPDOWN -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-person nav-icon"></i>
-
+          <a class="nav-link sc-user-toggle dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="sc-avatar"><i class="bi bi-person-fill"></i></span>
             {% if request.user.is_authenticated %}
-              <span class="username">Hi {{ request.user.first_name|default:request.user.username }}</span>
+              <span class="d-none d-lg-inline">Hi, {{ request.user.first_name|default:request.user.username }}</span>
+            {% else %}
+              <span class="d-none d-lg-inline">Account</span>
             {% endif %}
           </a>
 
-          <ul class="dropdown-menu dropdown-menu-end">
+          <ul class="dropdown-menu dropdown-menu-end sc-dropdown">
             {% if request.user.is_authenticated %}
+              <!-- My Orders / Profile point to # until those views/urls exist -->
               <li>
-                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+                <a class="dropdown-item" href="#"><i class="bi bi-box-seam"></i> My Orders</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="bi bi-person"></i> Profile</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}"><i class="bi bi-box-arrow-right"></i> Logout</a>
               </li>
             {% else %}
               <li>
-                <a class="dropdown-item" href="{% url 'accounts:login' %}">Customer Login</a>
+                <a class="dropdown-item" href="{% url 'accounts:login' %}"><i class="bi bi-person"></i> Customer Login</a>
               </li>
-
               <li>
-                <a class="dropdown-item" href="{% url 'accounts:seller_login' %}">Seller Login</a>
+                <a class="dropdown-item" href="{% url 'accounts:seller_login' %}"><i class="bi bi-shop"></i> Seller Login</a>
               </li>
-
               <li>
-                <a class="dropdown-item" href="{% url 'accounts:delivery_login' %}">Delivery Login</a>
+                <a class="dropdown-item" href="{% url 'accounts:delivery_login' %}"><i class="bi bi-truck"></i> Delivery Login</a>
               </li>
             {% endif %}
           </ul>

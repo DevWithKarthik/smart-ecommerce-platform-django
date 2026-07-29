@@ -23,8 +23,6 @@ def delivery_dashboard(request):
     return render(request, "delivery/dashboard.html")
 
 
-
-
 def role_login(request, expected_role):
 
     if request.method == "POST":

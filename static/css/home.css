@@ -1,0 +1,581 @@
+/* ==========================================================================
+   SMARTCART — HOME.CSS (home page only)
+   Shared tokens, buttons, navbar, footer, and the product-card component
+   now live in the global static/css/style.css, loaded on every page via
+   base.html. This file only holds sections unique to the homepage.
+   ========================================================================== */
+
+/* Home page has its own hero spacing that already clears the fixed navbar,
+   so it doesn't need style.css's generic interior-page top padding. */
+.sc-page {
+    padding-top: 0;
+}
+
+.sc-hero-title {
+    font-size: clamp(2rem, 4.4vw, 52px);
+    font-weight: 700;
+    line-height: 1.12;
+}
+
+/* --------------------------------------------------------------------------
+   HERO
+   -------------------------------------------------------------------------- */
+.sc-hero {
+    position: relative;
+    padding: 148px 0 100px;
+    background: linear-gradient(180deg, #F5F8FF 0%, #FFFFFF 70%);
+    overflow: hidden;
+}
+
+.sc-hero-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.sc-hero-shape.a {
+    width: 520px;
+    height: 520px;
+    top: -220px;
+    right: -160px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.14) 0%, rgba(37, 99, 235, 0) 70%);
+}
+
+.sc-hero-shape.b {
+    width: 360px;
+    height: 360px;
+    bottom: -160px;
+    left: -140px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.10) 0%, rgba(37, 99, 235, 0) 70%);
+}
+
+.sc-hero-copy p.lead {
+    color: var(--sc-text-secondary);
+    font-size: 17px;
+    max-width: 460px;
+    margin: 20px 0 32px;
+}
+
+.sc-hero-cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.sc-hero-trust {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.sc-hero-trust strong {
+    display: block;
+    font-family: var(--sc-font-display);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sc-hero-trust span {
+    font-size: 13px;
+    color: var(--sc-text-secondary);
+}
+
+.sc-hero-visual {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sc-hero-stage {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 1/1;
+    border-radius: var(--sc-radius-lg);
+    background: linear-gradient(155deg, var(--sc-primary) 0%, #1E3A8A 100%);
+    box-shadow: var(--sc-shadow-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.sc-hero-stage img {
+    width: 72%;
+    filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.28));
+    transform: rotate(-4deg);
+    transition: transform 600ms var(--sc-ease);
+}
+
+.sc-hero-stage:hover img {
+    transform: rotate(0deg) scale(1.04);
+}
+
+.sc-float-card {
+    position: absolute;
+    background: #fff;
+    border-radius: var(--sc-radius-md);
+    box-shadow: var(--sc-shadow-md);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: sc-float 5s ease-in-out infinite;
+}
+
+.sc-float-card .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.sc-float-card strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.2;
+}
+
+.sc-float-card span {
+    font-size: 11px;
+    color: var(--sc-text-secondary);
+}
+
+.sc-float-card.discount {
+    top: 6%;
+    left: -8%;
+}
+
+.sc-float-card.discount .icon {
+    background: #FFF1E6;
+    color: #F97316;
+}
+
+.sc-float-card.trust {
+    bottom: 10%;
+    right: -10%;
+    animation-delay: 1.4s;
+}
+
+.sc-float-card.trust .icon {
+    background: var(--sc-success-bg);
+    color: var(--sc-success);
+}
+
+@keyframes sc-float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .sc-float-card,
+    .sc-hero-stage img {
+        animation: none !important;
+        transition: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   CATEGORIES
+   -------------------------------------------------------------------------- */
+.sc-cat-card {
+    display: block;
+    height: 100%;
+    text-align: center;
+    background: #fff;
+    border: 1px solid var(--sc-border);
+    border-radius: var(--sc-radius-lg);
+    padding: 32px 18px;
+    transition: transform var(--sc-speed) var(--sc-ease), box-shadow var(--sc-speed) var(--sc-ease), border-color var(--sc-speed);
+}
+
+.sc-cat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sc-shadow-md);
+    border-color: var(--sc-primary-100);
+}
+
+.sc-cat-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    margin: 0 auto 16px;
+    background: var(--sc-primary-50);
+    color: var(--sc-primary);
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--sc-speed) var(--sc-ease), background var(--sc-speed), color var(--sc-speed);
+}
+
+.sc-cat-card:hover .sc-cat-icon {
+    transform: scale(1.08) rotate(-4deg);
+    background: var(--sc-primary);
+    color: #fff;
+}
+
+.sc-cat-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.sc-cat-card .count {
+    font-size: 13px;
+    color: var(--sc-text-secondary);
+}
+
+.sc-view-all-wrap {
+    text-align: center;
+    margin-top: 44px;
+}
+
+/* --------------------------------------------------------------------------
+   PROMOTIONAL BANNER (season sale + countdown)
+   -------------------------------------------------------------------------- */
+.sc-promo {
+    position: relative;
+    border-radius: var(--sc-radius-lg);
+    overflow: hidden;
+    background: linear-gradient(120deg, #1E3A8A 0%, var(--sc-primary) 55%, #3B82F6 100%);
+    color: #fff;
+    padding: 56px 40px;
+}
+
+.sc-promo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 88% 15%, rgba(255, 255, 255, 0.16) 0%, transparent 55%);
+}
+
+.sc-promo .sc-eyebrow {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+}
+
+.sc-promo h2 {
+    color: #fff;
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    margin: 14px 0 10px;
+}
+
+.sc-promo p.sub {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 16px;
+    margin-bottom: 26px;
+    max-width: 420px;
+}
+
+.sc-countdown {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.sc-countdown .unit {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--sc-radius-sm);
+    width: 68px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.sc-countdown .unit .num {
+    font-family: var(--sc-font-display);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.sc-countdown .unit .lbl {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgba(255, 255, 255, 0.75);
+    margin-top: 4px;
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   WHY CHOOSE US
+   -------------------------------------------------------------------------- */
+.sc-why-card {
+    text-align: center;
+    padding: 28px 16px;
+    height: 100%;
+}
+
+.sc-why-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    background: var(--sc-primary-50);
+    color: var(--sc-primary);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--sc-speed) var(--sc-ease), background var(--sc-speed), color var(--sc-speed);
+}
+
+.sc-why-card:hover .sc-why-icon {
+    transform: translateY(-6px) scale(1.08);
+    background: var(--sc-primary);
+    color: #fff;
+}
+
+.sc-why-card h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.sc-why-card p {
+    font-size: 14px;
+    color: var(--sc-text-secondary);
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   TRENDING (Bootstrap carousel, multi-card per slide)
+   -------------------------------------------------------------------------- */
+.sc-trending-carousel .carousel-inner {
+    padding: 6px 2px 40px;
+}
+
+.sc-trending-carousel .carousel-control-prev,
+.sc-trending-carousel .carousel-control-next {
+    width: 5%;
+    opacity: 1;
+}
+
+.sc-carousel-arrow {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--sc-border);
+    color: var(--sc-text);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    box-shadow: var(--sc-shadow-sm);
+    transition: background var(--sc-speed), color var(--sc-speed);
+}
+
+.carousel-control-prev:hover .sc-carousel-arrow,
+.carousel-control-next:hover .sc-carousel-arrow {
+    background: var(--sc-primary);
+    color: #fff;
+}
+
+.sc-trending-carousel .carousel-indicators {
+    bottom: -6px;
+}
+
+.sc-trending-carousel .carousel-indicators button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sc-border);
+    border: none;
+    margin: 0 4px;
+    opacity: 1;
+}
+
+.sc-trending-carousel .carousel-indicators button.active {
+    background: var(--sc-primary);
+    width: 22px;
+    border-radius: var(--sc-radius-pill);
+}
+
+/* --------------------------------------------------------------------------
+   TESTIMONIALS
+   -------------------------------------------------------------------------- */
+.sc-testi-card {
+    background: #fff;
+    border: 1px solid var(--sc-border);
+    border-radius: var(--sc-radius-md);
+    padding: 28px;
+    height: 100%;
+    transition: transform var(--sc-speed) var(--sc-ease), box-shadow var(--sc-speed) var(--sc-ease);
+}
+
+.sc-testi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sc-shadow-md);
+}
+
+.sc-testi-stars {
+    color: var(--sc-warning);
+    font-size: 14px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+}
+
+.sc-testi-quote {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--sc-text);
+    margin-bottom: 22px;
+}
+
+.sc-testi-person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sc-testi-avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--sc-primary-50);
+    color: var(--sc-primary-hover);
+    font-family: var(--sc-font-display);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.sc-testi-person strong {
+    display: block;
+    font-size: 14px;
+}
+
+.sc-testi-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--sc-text-secondary);
+}
+
+.sc-verified-badge {
+    color: var(--sc-success);
+    font-size: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   NEWSLETTER
+   -------------------------------------------------------------------------- */
+.sc-newsletter-box {
+    background: var(--sc-bg-secondary);
+    border: 1px solid var(--sc-border);
+    border-radius: var(--sc-radius-lg);
+    padding: 56px 32px;
+    text-align: center;
+}
+
+.sc-newsletter-box h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+    margin-bottom: 10px;
+}
+
+.sc-newsletter-box p {
+    color: var(--sc-text-secondary);
+    margin-bottom: 28px;
+}
+
+.sc-newsletter-form {
+    display: flex;
+    gap: 10px;
+    max-width: 440px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.sc-newsletter-form input {
+    flex: 1;
+    min-width: 220px;
+    border: 1px solid var(--sc-border);
+    border-radius: var(--sc-radius-pill);
+    padding: 13px 20px;
+    font-size: 15px;
+    outline: none;
+    background: #fff;
+    transition: border-color var(--sc-speed);
+}
+
+.sc-newsletter-form input:focus {
+    border-color: var(--sc-primary);
+}
+
+.sc-newsletter-note {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin-top: 14px;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+    .sc-hero {
+        padding: 128px 0 60px;
+    }
+
+    .sc-hero-visual {
+        margin-top: 48px;
+        min-height: 340px;
+    }
+
+    .sc-float-card {
+        position: static;
+        margin: 10px auto 0;
+        width: fit-content;
+        animation: none;
+    }
+
+    .sc-hero-stage {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .sc-hero-copy,
+    .sc-hero-cta,
+    .sc-hero-trust {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .sc-promo {
+        text-align: center;
+        padding: 40px 24px;
+    }
+
+    .sc-countdown,
+    .sc-hero-cta,
+    .sc-hero-trust {
+        justify-content: center;
+    }
+}
